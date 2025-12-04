@@ -1,40 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        body {
-            margin: 0;
-            background: #0A1A2F; /* matches your dark palette */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .viewer {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .fallback {
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ram — Portfolio</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Yellowtail&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0A1A2F;      /* dark electric blue */
+      --bg-2:#09111B;    /* midnight navy */
+      --accent:#246BFD;  /* hyper blue */
+      --neon:#7A2FF7;    /* neon purple */
+      --aqua:#2BC7DF;    /* aqua accent */
+      --muted:#728394;
+      --white:#F3F6FA;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg),var(--bg-2));
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    /* Layout */
+    .container{max-width:1100px;margin:40px auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:56px;height:56px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),var(--neon));
+      display:flex;align-items:center;justify-content:center;
+      font-family:"Bebas Neue",sans-serif;font-size:20px;color:var(--white);
+    }
+    h1.brand-title{font-family:"Bebas Neue",sans-serif;font-size:28px;letter-spacing:1px}
+    .cta{display:flex;gap:10px;align-items:center}
+
+    .btn{
+      background:transparent;border:2px solid rgba(255,255,255,0.08);
+      color:var(--white);padding:10px 16px;border-radius:8px;
+      text-decoration:none;font-weight:600;font-size:14px;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),var(--neon));
+      border:0;
+      box-shadow:0 6px 18px rgba(36,107,253,0.12);
+    }
+
+    /* Hero */
+    .hero{
+      display:grid;grid-template-columns:1fr 360px;gap:32px;margin-top:36px;align-items:center;
+    }
+    .hero-left h2{font-family:"Bebas Neue",sans-serif;font-size:44px;margin-bottom:8px;color:var(--white)}
+    .hero-left p{color:var(--muted);margin-bottom:18px;max-width:54ch}
+    .hero-right{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+      display:flex;flex-direction:column;gap:10px;align-items:center;
+    }
+    .hero-right img{max-width:100%;border-radius:6px;object-fit:cover}
+
+    /* Sections */
+    section{margin-top:36px;padding:22px;background:rgba(255,255,255,0.02);border-radius:10px}
+    h3{font-family:"Bebas Neue",sans-serif;font-size:22px;margin-bottom:12px}
+    .cols{display:flex;gap:18px;flex-wrap:wrap}
+    .card{flex:1;min-width:220px}
+
+    /* Skills */
+    .skills-list li{list-style:none;padding:6px 0;color:var(--white);opacity:0.95}
+    .tools-icons{display:flex;gap:10px;align-items:center}
+    .tool{
+      width:48px;height:32px;border-radius:6px;background:#0f1720;display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:var(--white);font-size:14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .thumb{background:linear-gradient(90deg,var(--bg-2),rgba(255,255,255,0.02));border-radius:8px;height:140px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+    .thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+
+    /* Approach */
+    .approach p{color:var(--muted);margin-bottom:8px}
+    .approach .pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,0.02);margin-right:8px;margin-bottom:8px;color:var(--white);font-weight:600}
+
+    footer{margin-top:30px;text-align:center;color:var(--muted);font-size:13px;padding:10px}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr; text-align:left}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:520px){
+      .container{padding:12px;margin:16px}
+      h1.brand-title{font-size:20px}
+      .hero-left h2{font-size:32px}
+      .gallery{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">R</div>
+        <div>
+          <div class="brand-title"><span style="font-family:'Bebas Neue'">RAM</span> — Portfolio</div>
+          <div style="color:var(--muted);font-size:13px">Graphic Designer • Gamer • Basic Editor</div>
+        </div>
+      </div>
 
-    <!-- PDF Viewer -->
-    <iframe class="viewer" src="portfolio.pdf"></iframe>
+      <div class="cta">
+        <!-- Open PDF in new tab -->
+        <a class="btn" href="portfolio.pdf" target="_blank" rel="noopener">Open PDF</a>
+        <!-- Download -->
+        <a class="btn primary" href="portfolio.pdf" download>Download PDF</a>
+      </div>
+    </header>
 
-    <!-- Fallback message for browsers that block PDFs -->
-    <div class="fallback">
-        <p>If the PDF does not load, <a href="portfolio.pdf" style="color:#2BC7DF;">click here to open it</a>.</p>
-    </div>
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <h2>Design with clarity. Energy from gaming.</h2>
+          <p>I create clean, modern visuals with a gaming-influenced edge — logos, banners, UI concepts, and simple editing. Browse my work below or download the full PDF portfolio.</p>
+          <div style="margin-top:14px">
+            <a class="btn primary" href="#work" style="margin-right:10px">View Work</a>
+            <a class="btn" href="#about">About</a>
+          </div>
+        </div>
 
+        <div class="hero-right">
+          <!-- Replace this with your featured image -->
+          <img src="https://via.placeholder.com/320x220.png?text=Featured+Work" alt="Featured work">
+          <div style="font-size:13px;color:var(--muted)">Featured piece — click to explore</div>
+        </div>
+      </section>
+
+      <section id="about">
+        <h3>About</h3>
+        <div class="cols">
+          <div class="card">
+            <p style="color:var(--muted)">
+              I’m a graphic designer, gamer, and basic editor who blends clean layouts with bold, digital aesthetics. I design with intent and polish every output for clarity and character.
+            </p>
+          </div>
+          <div class="card">
+            <h4 style="font-family:'Bebas Neue',sans-serif;margin-bottom:8px">Quick Facts</h4>
+            <ul style="color:var(--muted);font-size:14px">
+              <li>Tools: Photoshop • CorelDRAW • Blender • After Effects</li>
+              <li>Specialities: Posters, thumbnails, UI concepts, basic edits</li>
+              <li>Style: Dark, neon, gaming-inspired</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h3>Skills & Tools</h3>
+        <div class="cols">
+          <div class="card">
+            <h4 style="margin-bottom:8px">Skills</h4>
+            <ul class="skills-list">
+              <li>Graphic Design — logos, banners, posters</li>
+              <li>Basic Editing — photo & video trims, color fixes</li>
+              <li>UI Concepts — dark mode, neon accents</li>
+              <li>Gaming-inspired composition & color work</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-bottom:8px">Tools</h4>
+            <div class="tools-icons">
+              <div class="tool">Ps</div>
+              <div class="tool">Ai</div>
+              <div class="tool">Ae</div>
+              <div class="tool">Bl</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work">
+        <h3>Work</h3>
+        <div class="gallery">
+          <!-- Replace src with your image thumbnails -->
+          <div class="thumb"><img src="https://via.placeholder.com/400x300.png?text=Project+1" alt=""></div>
+          <div class="thumb"><img src="https://via.placeholder.com/400x300.png?text=Project+2" alt=""></div>
+          <div class="thumb"><img src="https://via.placeholder.com/400x300.png?text=Project+3" alt=""></div>
+          <div class="thumb"><img src="https://via.placeholder.com/400x300.png?text=Project+4" alt=""></div>
+          <div class="thumb"><img src="https://via.placeholder.com/400x300.png?text=Project+5" alt=""></div>
+          <div class="thumb"><img src="https://via.placeholder.com/400x300.png?text=Project+6" alt=""></div>
+        </div>
+      </section>
+
+      <section id="approach" class="approach">
+        <h3>Approach to Design</h3>
+        <div>
+          <span class="pill">Visual Clarity</span>
+          <span class="pill">Gaming Detail</span>
+          <span class="pill">Creative Simplicity</span>
+          <span class="pill">Adaptability</span>
+          <span class="pill">Refinement</span>
+        </div>
+
+        <div style="margin-top:12px;color:var(--muted)">
+          <p><strong>Visual Clarity:</strong> Clean structure, strong layouts, and balanced spacing.</p>
+          <p><strong>Gaming-inspired detail:</strong> High contrast, sharp highlights, and energetic flow.</p>
+          <p><strong>Creative simplicity:</strong> Minimal elements with maximum purpose.</p>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h3>Contact</h3>
+        <p style="color:var(--muted)">Want to work together or need edits? Contact me at <strong style="color:var(--aqua)">varshaaenterprises9@gmail.com</strong> or add a short contact link.</p>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> Ram — Graphic Designer • Gamer • Basic Editor
+    </footer>
+  </div>
+
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
